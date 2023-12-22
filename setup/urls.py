@@ -19,10 +19,12 @@ from django.urls import path, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 from videos.serializers import VideoSerializer
-from videos.views import VideoViewSet
+from videos.views import VideoViewSet, CategoriaViewSet, VideoCategoriaViewSet
 
 router = routers.DefaultRouter()
 router.register(r'videos', VideoViewSet, basename='Video')
+router.register(r'categorias', CategoriaViewSet, basename='Categoria')
+router.register('categorias/(?P<id_categoria>.+)/videos', VideoCategoriaViewSet, basename='categoria_video' )
 
 urlpatterns = [
     path('admin/', admin.site.urls),
