@@ -16,18 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
-from videos.serializers import VideoSerializer
-from videos.views import VideoViewSet, CategoriaViewSet, VideoCategoriaViewSet
+from rest_framework import routers
+
+from videos.views import VideoViewSet, CategoriaViewSet, VideoCategoriaViewSet, login
 
 router = routers.DefaultRouter()
 router.register(r'videos', VideoViewSet, basename='Video')
 router.register(r'categorias', CategoriaViewSet, basename='Categoria')
-router.register('categorias/(?P<id_categoria>.+)/videos', VideoCategoriaViewSet, basename='categoria_video' )
+router.register('categorias/(?P<id_categoria>.+)/videos', VideoCategoriaViewSet, basename='categoria_video')
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api/login', login),
 ]
