@@ -13,7 +13,7 @@ from rest_framework.status import (
 )
 from rest_framework.response import Response
 
-@csrf_exempt
+'''@csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
 def login(request):
@@ -29,16 +29,23 @@ def login(request):
     token, _ = Token.objects.get_or_create(user=user)
     return Response({'token': token.key},
                     status=HTTP_200_OK)
-
+'''
 
 
 class VideoViewSet(viewsets.ModelViewSet):
-
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
     http_method_names = ['get', 'post', 'patch', 'delete', 'put']
     filter_backends = [filters.SearchFilter]
     search_fields = ['titulo']
+
+class VideoFreeViewSet(viewsets.ModelViewSet):
+    queryset = Video.objects.all()[0:5]
+    serializer_class = VideoSerializer
+    http_method_names = ['get']
+
+
+
 
 
 class CategoriaViewSet(viewsets.ModelViewSet):

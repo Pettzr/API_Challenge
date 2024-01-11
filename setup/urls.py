@@ -17,10 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
+from django.shortcuts import redirect
 
-from videos.views import VideoViewSet, CategoriaViewSet, VideoCategoriaViewSet, login
+
+from videos.views import VideoViewSet, VideoFreeViewSet, CategoriaViewSet, VideoCategoriaViewSet
 
 router = routers.DefaultRouter()
+router.register(r'videos/free', VideoFreeViewSet, basename='VideoFree')
 router.register(r'videos', VideoViewSet, basename='Video')
 router.register(r'categorias', CategoriaViewSet, basename='Categoria')
 router.register('categorias/(?P<id_categoria>.+)/videos', VideoCategoriaViewSet, basename='categoria_video')
@@ -31,5 +34,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
-    path('api/login', login),
 ]
