@@ -2,7 +2,7 @@ from videos.models import Video, CategoriaVideo
 from videos.serializers import VideoSerializer, CategoriaSerializer
 from rest_framework import viewsets, generics, filters
 from django.contrib.auth import authenticate
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import api_view, permission_classes
@@ -37,10 +37,11 @@ def login(request):
 class VideoViewSet(viewsets.ModelViewSet):
     queryset = Video.objects.all()
     serializer_class = VideoSerializer
-    http_method_names = ['get', 'post', 'patch', 'delete', 'put']
+    http_method_names = ['get', 'post', 'patch','put']
     filter_backends = [filters.SearchFilter]
     search_fields = ['titulo']
     permission_classes = [IsAuthenticated]
+
 
 class VideoFreeViewSet(viewsets.ModelViewSet):
     queryset = Video.objects.all()[0:5]
@@ -55,7 +56,7 @@ class CategoriaViewSet(viewsets.ModelViewSet):
 
     queryset = CategoriaVideo.objects.all()
     serializer_class = CategoriaSerializer
-    http_method_names = ['get', 'post', 'patch', 'delete', 'put']
+    http_method_names = ['get', 'post', 'patch', 'put']
     permission_classes = [IsAuthenticated]
 
 class VideoCategoriaViewSet(viewsets.ModelViewSet):
