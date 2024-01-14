@@ -33,7 +33,7 @@ router.register('categorias/(?P<id_categoria>.+)/videos', VideoCategoriaViewSet,
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('configs-admin/', admin.site.urls),
     path('', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]
